@@ -33,5 +33,5 @@ enum Suit { // will define the suits
 }
 
 enum CardValue { // all possible cards
-	ace, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, jack, queen, king;
+	ace, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, jack, queen, king, infinite;
 }
