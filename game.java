@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 public class Game {
-    private Deck gameCards;
-    private ArrayList<Card> hand;
-    private ArrayList<Card> compHand;
+    private Deck deck;
+    protected ArrayList<Card> playerHand;
+    protected ArrayList<Card> compHand;
 
     public Game() {
-        hand = new ArrayList<Card>();
+        playerHand = new ArrayList<Card>();
         compHand = new ArrayList<Card>();
-        gameCards= new Deck();
+        deck = new Deck();
     }
 
     public ArrayList<Card> getCompHand() {
@@ -15,28 +15,28 @@ public class Game {
     }
 
     public ArrayList<Card> getHand() {
-        return hand;
+        return playerHand;
     }
     public void drawToHand(){
-        hand.add(gameCards.DrawValueofCard());
+        playerHand.add(deck.DrawValueofCard());
     }
     public void drawToComputer(){
-        compHand.add(gameCards.DrawValueofCard());
+        compHand.add(deck.DrawValueofCard());
     }
     public Card getTop(){
-        return gameCards.getTopUsed();
+        return deck.getTopUsed();
     }
-    public void setTop(CardValue v, Suit s){
-        gameCards.setTopCard(new Card(v,s));
+    public void discard(){
+        deck.discard(deck.DrawValueofCard());
     }
-    public Deck getGameCards() {
-        return gameCards;
+    public Deck getDeck() {
+        return deck;
     }
 
     public void deal(int n) {
         for (int i = 0; i < n; i++) {
-            hand.add(gameCards.DrawValueofCard());
-            compHand.add(gameCards.DrawValueofCard());
+            playerHand.add(deck.DrawValueofCard());
+            compHand.add(deck.DrawValueofCard());
         }
     }
 }
