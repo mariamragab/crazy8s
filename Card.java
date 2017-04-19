@@ -22,16 +22,48 @@ public class Card {
 	public void setValue(CardValue value) {
 		this.value = value;
 	}
+	
+	public boolean equals(String s){
+		if(toString().equals(s))
+			return true;
+		return false;
+	}
 
 	public String toString() {
-		return "The suit is " + suit + " and the value is " + value;
+		return "" + value + " " + suit;
 	}
 }
 
 enum Suit { // will define the suits
-	clubs, diamonds, hearts, spades
+	Clubs("C"), Diamonds("D"), Hearts("H"), Spades("S");
+	private String value;
+	
+	private Suit(String v){
+		value = v;
+	}
+	
+	public boolean equals(String s){
+		if(value.equals(s))
+			return true;
+		return false;
+	}
 }
 
 enum CardValue { // all possible cards
-	ace, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, jack, queen, king, infinite;
+	ace("A"), two("2"), three("3"), four("4"), five("5"), six("6"), seven("7"), eight("8"), nine("9"), ten("10"), jack("J"), queen("Q"), king("K");
+	private String value;
+	
+	private CardValue(String v){
+		value = v;
+	}
+	
+	public boolean equals(String s){
+		if(value.equals(s))
+			return true;
+		return false;
+	}
+	
+	public String toString(){
+		return value;
+	}
 }
