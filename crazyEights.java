@@ -1,51 +1,62 @@
+import java.util.ArrayList;
 import java.util.Scanner;
-public class crazyEights extends game{
-
-    private Scanner kb;
+public class crazyEights extends Game{
+	private Scanner kb;
+	public AI ai;
+	public static String eightSuit = null;
+	
     public crazyEights(){
         super();
         super.deal(5);
-        kb=new Scanner(System.in);
+        ai = new AI(compHand);
+        kb = new Scanner(System.in);
+    }
+    
+    public static String getEightSuit(){
+    	return eightSuit;
     }
     public boolean winner(){
-        return (hand.size()==0||compHand.size()==0);
+        return (playerHand.isEmpty() || compHand.isEmpty());
     }
 
-    public boolean validPLay(Card m){
-        if(card.getValue().equals(super.getGameCards().getTopUsed().getValue())||card.getSuit().equals(super.getGameCards().getTopUsed().getSuit()));
-            super.getGameCards().discard(m);
-    }
-
-    public void play(){
-        boolean drawing=false;
-        Card m=null;
-        while(!validPLay(m)&&!drawing){
-            System.out.println("Select a card to play, or type draw to draw the card. \n your current hand contains "+super.getHand());
-            System.out.println("The top card on the deck is "+super.getTop());
-            String s=kb.next();
-            if(s.equalIgnoreCase("draw")){
-                drawing=true;
-                super.drawToHand();
-            }
-            else
-                m= new Card(s, kb.next());
-        }
-    }
-
-    public boolean eight(Card c){
-        if(!c.getValue().equals("eight"))
-            return false;
-        else{
-            String s;
-            while (!s.equals("club")&&!s.equals("spade")&&!s.equals("heart")&&!s.equals(diamond)) {
-                System.out.print("Select a suit");
-                s=kb.next();
-            }
-            Suit s1=s;
-            CardValue c1=infinite;
-            super.getGameCard().discard(new Card(s1, c1));
+    public boolean validPlay(Card m){
+        if(m.getValue().equals(super.getDeck().getTopUsed().getValue()) || m.getSuit().equals(super.getDeck().getTopUsed().getSuit()) || m.getValue().equals("eight") || super.getDeck().getTopUsed().getValue().equals("eight"))
             return true;
-        }
+        return false;
     }
 
+    public boolean play(){
+    	boolean hasPlayed = false;
+        while(!hasPlayed){
+            System.out.println("Select a card to play, or type draw to draw the card.\nYour current hand contains " + super.getHand());
+            System.out.println("The top card on the deck is " + super.getTop());
+            String s=kb.next();
+            if(s.equalsIgnoreCase("draw"))
+                super.drawToHand();
+            else{
+                if(super.getHand().contains(s) && validPlay(super.getHand().get(super.getHand().indexOf(s)))){
+                	if(s.charAt(0) == '8'){
+                		eight();
+                	}else
+                		eightSuit = null;
+                	super.getDeck().discard(super.getHand().get(super.getHand().indexOf(s)));
+                }
+            }
+        }
+        return playerHand.isEmpty();
+    }
+
+    public void eight(){
+    	String s = null;
+    	while (!s.equals("clubs") && !s.equals("spades") && !s.equals("hearts") && !s.equals("diamonds")) {
+    		System.out.print("Select a suit (clubs, spades, diamonds, hearts): ");
+    		s = kb.next();
+    	}
+    	eightSuit = s;
+    	return;
+    }
+    
+    public boolean hasWon(ArrayList<Card> h){
+    	return h.isEmpty();
+    }
 }
