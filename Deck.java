@@ -11,23 +11,23 @@ public class Deck {
 		Origincards = new ArrayList<>(); //cards for original deck players are picking from
 		Used = new ArrayList<>();
 
-		for (Suit c : Suit.values()) {  //looping through the card value & card to make a new card and add it to oringin card 
-			for (CardValue i : CardValue.values()-1) {
+		for (Suit c : Suit.values()) {  //looping through the card value & card to make a new card and add it to origin card 
+			for (CardValue i : CardValue.values()) {
 				Card a = new Card(c, i);
 				Origincards.add(a); // create new card c, is a parameter & int
 			}
 		}
+		shuffle();
 	}
 	
-	public Card DrawValueofCard() {   //takes the first value of the card and puts it in the used pile
+	public Card DrawValueofCard() {   //takes the first value of the card and removes it from the deck and returns it
 		if(Origincards.isEmpty())
 			startOver();
-		return (Origincards.get(0));
-		}
+		return Origincards.remove(0);
 	}
 	public void discard(Card c){
 		Used.add(c);
-		topUsed=c;
+		topUsed = c;
 	}
 
 	public Card getTopUsed() {
@@ -37,27 +37,23 @@ public class Deck {
 	public void setTopUsed(Card topUsed) {
 		this.topUsed = topUsed;
 	}
-	public void shuffle () {  //takes in an arraylist to shuffle
+	public void shuffle() {  //shuffles the deck
 		Collections.shuffle(Origincards);
 	}
-	public void reshuffle(){Collecions.shuffle(Used);}
-	
+
 	public void startOver() {
-		reshuffle();
+		topUsed = Used.remove(Used.size()-1);
 		Origincards.addAll(Used);
 		Used.clear();
 		Used.add(topUsed);
-	}
-		
-	public void add(Card m) {  //for adding cards to a deck ex. adding to the used pile
-		Origincards.add(m);  //which deck
+		shuffle();
 	}
 	
-	public ArrayList getOrigincards() {
+	public ArrayList<Card> getOrigincards() {
 		return Origincards;
 	}
 
-	public ArrayList getUsed() {
+	public ArrayList<Card> getUsed() {
 		return Used;
 	}
-	}
+}
