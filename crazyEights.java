@@ -8,6 +8,7 @@ public class crazyEights extends Game{
     public crazyEights(){
         super();
         super.deal(5);
+	super.discard();
         ai = new AI(compHand);
         kb = new Scanner(System.in);
     }
