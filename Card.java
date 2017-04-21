@@ -35,7 +35,7 @@ public class Card {
 }
 
 enum Suit { // will define the suits
-	Clubs("C"), Diamonds("D"), Hearts("H"), Spades("S");
+	Clubs("Clubs"), Diamonds("Diamonds"), Hearts("Hearts"), Spades("Spades");
 	private String value;
 	
 	private Suit(String v){
@@ -46,6 +46,10 @@ enum Suit { // will define the suits
 		if(value.equals(s))
 			return true;
 		return false;
+	}
+	
+	public String toString(){
+		return value;
 	}
 }
 

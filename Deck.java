@@ -1,11 +1,9 @@
 import java.util.ArrayList;
 import java.util.Collections;
 public class Deck {
-	private ArrayList <Card>Origincards;
-	private ArrayList <Card>Used;
+	private ArrayList <Card> Origincards;
+	private ArrayList <Card> Used;
 	private Card topUsed;
-//	private ArrayList User; (in other class not deck)
-//	private ArrayList AI;
 		
 	public Deck() {
 		Origincards = new ArrayList<>(); //cards for original deck players are picking from
@@ -47,6 +45,14 @@ public class Deck {
 		Used.clear();
 		Used.add(topUsed);
 		shuffle();
+	}
+	
+	public void putFirstCard(){
+		while(Origincards.get(0).getValue().equals("8"))
+			shuffle();
+		
+	    Used.add(DrawValueofCard());
+		topUsed = Used.get(0);
 	}
 	
 	public ArrayList<Card> getOrigincards() {
